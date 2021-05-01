@@ -20,7 +20,7 @@ async def busca(ctx, arg, arg2 = ""):
       if str(arg2) != "":
         palabra = str(arg) + "%20" + str(arg2)      
 
-      print(palabra)
+      # print(palabra)
 
       source = requests.get('https://dle.rae.es/' + palabra + '/').text
 
