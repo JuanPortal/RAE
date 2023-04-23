@@ -1,12 +1,9 @@
-RAE es un bot que te permite buscar el significado de las palabras y obtener la palabra del día.
+RAE es un bot que te permite buscar en el diccionario de la RAE el significado de las palabras y obtener la palabra del día.
 
 Comandos:
 - $busca te da el significado(s) de la palabra
 - $wotd retorna la palabra del día según la RAE
 - $help para obtener más información
-
-Importante:
-Actualmente estamos teniendo problemas con las palabras con tilde, antes funcionaba bien pero de la nada empezó a fallar
 
 Link: https://discord.com/oauth2/authorize?client_id=820069086985453608&permissions=2148006976&scope=bot
 
