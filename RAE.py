@@ -3,9 +3,11 @@ from discord.ext import commands
 import os
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
+import urllib.parse
 from keep_alive import keep_alive
+import lxml
 
-client = commands.Bot(command_prefix="$")
+client = commands.Bot(command_prefix="$", intents=discord.Intents.all())  # this is the way
 client.remove_command("help")
 
 
@@ -14,12 +16,13 @@ async def on_ready():
     print("RAE ready!")
 
 
-@client.command(pass_context=True, aliases=["buscar", "search", "b", "lookfor"])
+@client.command(pass_context=True,
+                aliases=["buscar", "search", "b", "lookfor"])
 async def busca(ctx, arg, arg2=""):
     try:
-        palabra = arg.lower().encode('utf-8').decode('utf-8')
+        palabra = urllib.parse.quote(arg.lower())
         if str(arg2) != "":
-            palabra = str(arg) + "%20" + str(arg2)
+            palabra = urllib.parse.quote(str(arg) + " " + str(arg2))
 
         print(palabra)
 
@@ -48,9 +51,9 @@ async def busca(ctx, arg, arg2=""):
         await ctx.send(embed=em)
 
     except UnicodeEncodeError:
-      await ctx.channel.send(
-                f"Por el momento estamos teniendo problemas con las palabras con tilde. Pronto lanzaremos la actualización. ¡Gracias por la paciencia!")
-
+        await ctx.channel.send(
+            f"Por el momento estamos teniendo problemas con las palabras con tilde. Pronto lanzaremos la actualización. ¡Gracias por la paciencia!"
+        )
 
     except AttributeError as e:
         print(e)
@@ -91,4 +94,5 @@ async def help(ctx):
     await ctx.send(embed=em)
 
 
-client.run("TOKEN")
+keep_alive()
+client.run(os.getenv("TOKEN"))
