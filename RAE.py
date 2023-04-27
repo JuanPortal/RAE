@@ -4,7 +4,6 @@ import os
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.parse
-from keep_alive import keep_alive
 import lxml
 
 client = commands.Bot(command_prefix="$", intents=discord.Intents.all())  # this is the way
@@ -94,5 +93,4 @@ async def help(ctx):
     await ctx.send(embed=em)
 
 
-keep_alive()
 client.run(os.getenv("TOKEN"))
