@@ -5,6 +5,7 @@ from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.parse
 import lxml
+from dotenv import load_dotenv
 
 client = commands.Bot(command_prefix="$", intents=discord.Intents.all())  # this is the way
 client.remove_command("help")
@@ -93,4 +94,5 @@ async def help(ctx):
     await ctx.send(embed=em)
 
 
+load_dotenv()
 client.run(os.getenv("TOKEN"))
