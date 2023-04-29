@@ -7,7 +7,7 @@ import urllib.parse
 import lxml
 from dotenv import load_dotenv
 
-client = commands.Bot(command_prefix="$", intents=discord.Intents.all())  # this is the way
+client = commands.Bot(command_prefix="$", intents=discord.Intents.all())
 client.remove_command("help")
 
 
@@ -16,8 +16,7 @@ async def on_ready():
     print("RAE ready!")
 
 
-@client.command(pass_context=True,
-                aliases=["buscar", "search", "b", "lookfor"])
+@client.command(pass_context=True, aliases=["buscar", "search", "b", "lookfor"])
 async def busca(ctx, arg, arg2=""):
     try:
         palabra = urllib.parse.quote(arg.lower())
@@ -68,30 +67,28 @@ async def busca(ctx, arg, arg2=""):
 
 @client.command(pass_context=True, aliases=["pdd", "deldia"])
 async def wotd(ctx):
-    req2 = Request("https://dle.rae.es/",
-                   headers={'User-Agent': 'Mozilla/5.0'})
+    req2 = Request("https://dle.rae.es/", headers={'User-Agent': 'Mozilla/5.0'})
     webpage = urlopen(req2).read()
     soup2 = BeautifulSoup(webpage, "lxml")
 
     article = soup2.find("div")
 
-    wotd = article.find("div", class_="row").find(
-        "div", class_="col-sm-4 bloqueIn").find("div", class_="").p.a.text
+    wotd = article.find("div", class_="row").find("div", class_="col-sm-4 bloqueIn").find("div", class_="").p.a.text
 
-    em = discord.Embed(title="Palabra del día",
+    embedded = discord.Embed(title="Palabra del día",
                        description=wotd,
                        color=0xFF5733)
-    await ctx.send(embed=em)
+    await ctx.send(embed=embedded)
 
 
 @client.command(pass_context=True)
 async def help(ctx):
-    em = discord.Embed(
+    embedded = discord.Embed(
         title="Help",
         description=
         "***$busca*** devuelve el significado de la palabra\n\n***$wotd*** retorna la palabra del día"
     )
-    await ctx.send(embed=em)
+    await ctx.send(embed=embedded)
 
 
 load_dotenv()
