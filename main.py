@@ -53,7 +53,7 @@ async def buscar(ctx, arg, arg2=""):
             await ctx.channel.send(f"{palabra} no se encuentra en el diccionario")
 
 
-@client.command(pass_context=True, aliases=["wotd", "pdd", "deldia"])
+@client.command(pass_context=True, aliases=["pdd", "wotd", "deldia"])
 async def dia(ctx):
     req = Request("https://dle.rae.es/", headers={'User-Agent': 'Mozilla/5.0'})
     webpage = urlopen(req).read()
