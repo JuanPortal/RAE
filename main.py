@@ -53,8 +53,8 @@ async def buscar(ctx, arg, arg2=""):
             await ctx.channel.send(f"{palabra} no se encuentra en el diccionario")
 
 
-@client.command(pass_context=True, aliases=["wotd", "deldia"])
-async def pdd(ctx):
+@client.command(pass_context=True, aliases=["wotd", "pdd", "deldia"])
+async def dia(ctx):
     req = Request("https://dle.rae.es/", headers={'User-Agent': 'Mozilla/5.0'})
     webpage = urlopen(req).read()
     soup = BeautifulSoup(webpage, "lxml")
@@ -67,7 +67,7 @@ async def pdd(ctx):
 
 @client.command(pass_context=True)
 async def help(ctx):
-    mostrar = discord.Embed(title="Help", description="***$buscar*** *palabra*\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0devuelve el significado de la palabra\n\n***$wotd***\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0retorna la palabra del día")
+    mostrar = discord.Embed(title="Help", description="***$buscar*** *palabra*\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0devuelve el significado de la palabra\n\n***$dia***\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0retorna la palabra del día")
     await ctx.send(embed=mostrar)
 
 
