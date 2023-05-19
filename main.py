@@ -67,7 +67,7 @@ async def pdd(ctx):
 
 @client.command(pass_context=True)
 async def help(ctx):
-    mostrar = discord.Embed(title="Help", description="***$buscar **palabra***** devuelve el significado de la palabra\n\n***$wotd*** retorna la palabra del día")
+    mostrar = discord.Embed(title="Help", description="***$buscar*** **palabra** devuelve el significado de la palabra\n\n***$wotd*** retorna la palabra del día")
     await ctx.send(embed=mostrar)
 
 
