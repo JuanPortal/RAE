@@ -4,7 +4,7 @@ import os
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.parse
-# import lxml
+import lxml
 # from keep_alive import keep_alive
 
 client = commands.Bot(command_prefix="$", intents=discord.Intents.all())
