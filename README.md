@@ -1,4 +1,4 @@
-RAE es un bot que te permite buscar en el diccionario de la RAE el significado de las palabras y obtener la palabra del día.
+RAE es un bot que te permite buscar el significado de las palabras en el diccionario de la RAE y obtener la palabra del día.
 
 Comandos:
 - $busca te da el significado(s) de la palabra
