@@ -72,4 +72,4 @@ async def help(ctx):
 
 
 keep_alive()
-client.run(os.environ["${{shared.TOKEN}}"])
+client.run(os.environ["TOKEN"])
