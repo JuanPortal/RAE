@@ -60,7 +60,10 @@ async def dia(ctx):
     soup = BeautifulSoup(webpage, "lxml")
     article = soup.find("div")
     palabra = article.find("div", class_="row").find("div", class_="col-sm-4 bloqueIn").find("div", class_="").p.a.text
-    palabra.replace('1','').replace('2','')
+    # palabra.replace('1','').replace('2','')
+
+    if palabra.endswith('1'):
+        palabra = palabra[:len(palabra)-2]
 
     mostrar = discord.Embed(title="Palabra del día", description=palabra, color=0xFF5733)
     await ctx.send(embed=mostrar)
