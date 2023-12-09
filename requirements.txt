@@ -8,4 +8,4 @@ frozenlist==1.3.3
 idna==3.4
 multidict==6.0.3
 yarl==1.8.2
-beautifulsoup==4.12.2
+beautifulsoup4==4.12.2
