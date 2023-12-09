@@ -63,7 +63,7 @@ async def dia(ctx):
     # palabra.replace('1','').replace('2','')
 
     if palabra.endswith('1'):
-        palabra = palabra[:len(palabra)-2]
+        palabra = palabra[:len(palabra)-1]
 
     mostrar = discord.Embed(title="Palabra del día", description=palabra, color=0xFF5733)
     await ctx.send(embed=mostrar)
