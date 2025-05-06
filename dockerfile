@@ -1,5 +1,5 @@
 # Use a full-featured base image with Python
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 # Set environment vars
 ENV VIRTUAL_ENV=/opt/venv
