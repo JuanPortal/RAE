@@ -82,8 +82,7 @@ async def wotd(ctx):
 async def help(ctx):
 
     embedded = discord.Embed(
-        title="📖 Ayuda",
-        description="Comandos disponibles:",
+        title="📖 Comandos",
         color=0x2596BE
     )
 
