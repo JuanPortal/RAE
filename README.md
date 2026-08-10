@@ -21,7 +21,6 @@
 
 ```text
 $buscar perro
-$buscar paralelepípedo
 $dia
 ```
 
