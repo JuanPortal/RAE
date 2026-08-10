@@ -62,7 +62,7 @@ async def definition(ctx, *args):
     embedded = discord.Embed(
         title=word,
         description=description,
-        color=0x2596BE
+        color=0x00265B
     )
 
     await ctx.send(embed=embedded)
@@ -74,7 +74,7 @@ async def wotd(ctx):
     webpage = urlopen(req).read()
     soup = BeautifulSoup(webpage, "lxml")
     wotd = soup.find("span", class_="c-word-day__word").text.strip()
-    embedded = discord.Embed( title="Palabra del día", description=wotd, color=0x2596BE)
+    embedded = discord.Embed( title="Palabra del día", description=wotd, color=0x00265B)
     await ctx.send(embed=embedded)
 
 
@@ -83,7 +83,7 @@ async def help(ctx):
 
     embedded = discord.Embed(
         title="📖 Comandos",
-        color=0x2596BE
+        color=0x00265B
     )
 
     embedded.add_field(
