@@ -4,8 +4,8 @@ import os
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.parse
-import lxml
-# from keep_alive import keep_alive
+from urllib.error import HTTPError
+
 
 client = commands.Bot(command_prefix="$", intents=discord.Intents.all())
 client.remove_command("help")
@@ -16,64 +16,109 @@ async def on_ready():
     print("RAE ready!")
 
 
-@client.command(pass_context=True, aliases=["busca", "b"])
-async def buscar(ctx, arg, arg2=""):
-    try:
-        palabra = urllib.parse.quote(arg.lower())
-        if str(arg2) != "":
-            palabra = urllib.parse.quote(str(arg) + " " + str(arg2))
+@client.command(pass_context=True, aliases=["buscar", "busca", "b"])
+async def definition(ctx, *args):
+    if not args:
+        await ctx.send("Debes escribir una palabra.")
+        return
 
-        url = f"https://dle.rae.es/{palabra}/"
+    url = f"https://dle.rae.es/{urllib.parse.quote(' '.join(args).lower())}/"
+    req = Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+            "Referer": "https://www.google.com/"
+        }
+    )
 
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        webpage = urlopen(req).read()
-        soup = BeautifulSoup(webpage, "lxml")
-        article = soup.find("article")
-
-        palabra_a_mostrar = article.find("header", class_="f").text
-
-        significados = ""
-
-        for significado in article.find_all("p", {"class": ["j", "j1", "j2", "j3", "j4", "j5", "j6", "l2"]}):
-            if len(significados + significado.text) < 2048:
-                significados += significado.text + "\n\n"
-
-        mostrar = discord.Embed(title=palabra_a_mostrar, description=significados, color=0xFFFF00)
-        await ctx.send(embed=mostrar)
-
-    except UnicodeEncodeError:
-        await ctx.channel.send(f"Por el momento estamos teniendo problemas con las palabras con tilde; pronto lanzaremos la actualización. ¡Gracias por la paciencia!")
-
-    except AttributeError as e:
-        print(e)
-        if str(arg2) == "":
-            await ctx.channel.send(f"{palabra} no se encuentra en el diccionario")
-        else:
-            palabra = palabra.replace("%20", " ")
-            await ctx.channel.send(f"{palabra} no se encuentra en el diccionario")
-
-
-@client.command(pass_context=True, aliases=["pdd", "wotd", "deldia", "día"])
-async def dia(ctx):
-    req = Request("https://dle.rae.es/", headers={'User-Agent': 'Mozilla/5.0'})
     webpage = urlopen(req).read()
     soup = BeautifulSoup(webpage, "lxml")
-    article = soup.find("div")
-    palabra = article.find("div", class_="row").find("div", class_="col-sm-4 bloqueIn").find("div", class_="").p.a.text
-    # palabra.replace('1','').replace('2','')
+    article = soup.find("article")
 
-    if palabra.endswith('1'):
-        palabra = palabra[:len(palabra)-1]
+    word = article.find("h1", class_="c-page-header__title") if article else None
 
-    mostrar = discord.Embed(title="Palabra del día", description=palabra, color=0xFF5733)
-    await ctx.send(embed=mostrar)
+    if word is None:
+        await ctx.send(f"**{' '.join(args)}** no se encuentra en el diccionario o está mal escrito.")
+        return
+
+    word = word.get_text(strip=True)
+
+    definitions = []
+
+    for definition in article.find_all(
+        "li",
+        class_=["j", "j1", "j2", "j3", "j4", "j5", "j6"]
+    ):
+        definitions.append(
+            definition.find(
+                "div",
+                class_="c-definitions__item"
+            ).get_text(" ", strip=True)
+        )
+
+    description = "\n\n".join(definitions)
+
+    embedded = discord.Embed(
+        title=word,
+        description=description,
+        color=0xFFFF00
+    )
+
+    await ctx.send(embed=embedded)
 
 
+@client.command(pass_context=True, aliases=["dia", "día", "pdd"])
+async def wotd(ctx):
+    req = Request( "https://dle.rae.es/", headers={ "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15", "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "es-ES,es;q=0.9,en;q=0.8", "Referer": "https://www.google.com/"})
+    webpage = urlopen(req).read()
+    soup = BeautifulSoup(webpage, "lxml")
+    wotd = soup.find("span", class_="c-word-day__word").text.strip()
+    embedded = discord.Embed( title="Palabra del día", description=wotd, color=0xFF5733)
+    await ctx.send(embed=embedded)
+
+
+
+@client.command(aliases=["ayuda"])
+async def help(ctx):
+
+    embedded = discord.Embed(
+        title="📖 Ayuda — RAE Bot",
+        description="Comandos disponibles:",
+        color=0xFFFF00
+    )
+
+    embedded.add_field(
+        name="🔎 $buscar palabra",
+        value="Busca una palabra en el Diccionario de la RAE.\n"
+              "**Ejemplo:** `$buscar perro`\n"
+              "Aliases: `$busca`, `$b`",
+        inline=False
+    )
+
+    embedded.add_field(
+        name="📅 $dia",
+        value="Muestra la palabra del día de la RAE.\n"
+              "**Ejemplo:** `$dia`",
+        inline=False
+    )
+
+    embedded.set_footer(
+        text="Diccionario de la lengua española • Real Academia Española"
+    )
+
+    await ctx.send(embed=embedded)
+
+
+
+
+
+'''
 @client.command(pass_context=True)
 async def help(ctx):
-    mostrar = discord.Embed(title="Help", description="***$buscar*** *palabra*\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0devuelve el significado de la palabra\n\n***$dia***\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0retorna la palabra del día")
-    await ctx.send(embed=mostrar)
-
+    embedded = discord.Embed(title="Help", description="***$buscar*** *palabra*\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0devuelve el significado de la palabra\n\n***$dia***\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0retorna la palabra del día")
+    await ctx.send(embed=embedded)
+'''
 
 client.run(os.environ["TOKEN"])
-# client.run('TOKEN')
