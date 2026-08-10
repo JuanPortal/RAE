@@ -88,13 +88,13 @@ async def help(ctx):
     )
 
     embedded.add_field(
-        name="🔎 $buscar <palabra<",
+        name="🔎 `$buscar <palabra>`",
         value="Busca una palabra en el Diccionario de la RAE.\n",
         inline=False
     )
 
     embedded.add_field(
-        name="📅 $dia",
+        name="📅 `$dia`",
         value="Muestra la palabra del día de la RAE.\n",
         inline=False
     )
