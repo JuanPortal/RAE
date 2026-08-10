@@ -1,5 +1,7 @@
 # 📖 RAE
 
+<p> <img src="https://user-images.githubusercontent.com/78442505/164916582-bfaf45f4-1c04-47dd-a426-4b955ec8a7e0.png" alt="PSV Bot Logo" width="100" style="border-radius: 20px;"> </p>
+
 **RAE** es un bot de Discord que te permite consultar el significado de palabras directamente desde el Diccionario de la lengua española (DLE) de la Real Academia Española, además de obtener la palabra del día.
 
 ## ✨ Características
