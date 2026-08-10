@@ -4,7 +4,6 @@ import os
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.parse
-#from urllib.error import HTTPError
 
 
 client = commands.Bot(command_prefix="$", intents=discord.Intents.all())
@@ -79,47 +78,29 @@ async def wotd(ctx):
     await ctx.send(embed=embedded)
 
 
-
 @client.command(aliases=["ayuda"])
 async def help(ctx):
 
     embedded = discord.Embed(
-        title="📖 Ayuda — RAE Bot",
+        title="📖 Ayuda",
         description="Comandos disponibles:",
         color=0xFFFF00
     )
 
     embedded.add_field(
-        name="🔎 $buscar palabra",
-        value="Busca una palabra en el Diccionario de la RAE.\n"
-              "**Ejemplo:** `$buscar perro`\n"
-              "Aliases: `$busca`, `$b`",
+        name="🔎 $buscar <palabra<",
+        value="Busca una palabra en el Diccionario de la RAE.\n",
         inline=False
     )
 
     embedded.add_field(
         name="📅 $dia",
-        value="Muestra la palabra del día de la RAE.\n"
-              "**Ejemplo:** `$dia`",
+        value="Muestra la palabra del día de la RAE.\n",
         inline=False
     )
 
-    embedded.set_footer(
-        text="Diccionario de la lengua española • Real Academia Española"
-    )
-
     await ctx.send(embed=embedded)
 
-
-
-
-
-'''
-@client.command(pass_context=True)
-async def help(ctx):
-    embedded = discord.Embed(title="Help", description="***$buscar*** *palabra*\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0devuelve el significado de la palabra\n\n***$dia***\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0retorna la palabra del día")
-    await ctx.send(embed=embedded)
-'''
 
 client.run(os.environ["TOKEN"])
 
