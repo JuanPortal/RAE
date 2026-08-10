@@ -4,9 +4,8 @@
 
 ## ✨ Características
 
-- 📚 Buscar palabras y consultar sus definiciones.
+- 🔎 Buscar palabras y consultar sus definiciones.
 - 📅 Obtener la palabra del día.
-- ⚡ Respuestas directamente en Discord.
 
 ## 🤖 Comandos
 
@@ -21,7 +20,7 @@
 ```text
 $buscar perro
 $buscar paralelepípedo
-$wdia
+$dia
 ```
 
 ## ➕ Añadir el bot
