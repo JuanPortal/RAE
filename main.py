@@ -4,7 +4,7 @@ import os
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
 import urllib.parse
-from urllib.error import HTTPError
+#from urllib.error import HTTPError
 
 
 client = commands.Bot(command_prefix="$", intents=discord.Intents.all())
@@ -122,3 +122,4 @@ async def help(ctx):
 '''
 
 client.run(os.environ["TOKEN"])
+
