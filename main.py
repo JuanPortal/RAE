@@ -15,6 +15,18 @@ async def on_ready():
     print("RAE ready!")
 
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.author.bot and message.author.id != 1194881823432507472:
+        return
+
+    ctx = await client.get_context(message)
+    await client.invoke(ctx)
+
+
 @client.command(pass_context=True, aliases=["buscar", "busca", "b"])
 async def definition(ctx, *args):
     if not args:
