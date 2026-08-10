@@ -1,6 +1,6 @@
-# 📖 RAE — Diccionario de la Real Academia Española
+# 📖 RAE
 
-**RAE** es un bot de Discord que te permite consultar el significado de palabras directamente desde el **Diccionario de la lengua española (DLE)** de la Real Academia Española, además de obtener la **palabra del día**.
+**RAE** es un bot de Discord que te permite consultar el significado de palabras directamente desde el Diccionario de la lengua española (DLE) de la Real Academia Española, además de obtener la palabra del día.
 
 ## ✨ Características
 
@@ -21,7 +21,7 @@
 ```text
 $buscar perro
 $buscar paralelepípedo
-$wotd
+$wdia
 ```
 
 ## ➕ Añadir el bot
