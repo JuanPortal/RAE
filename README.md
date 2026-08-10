@@ -34,4 +34,4 @@ $dia
 
 Las definiciones y la palabra del día se obtienen del **Diccionario de la lengua española de la Real Academia Española**.
 
-> Este proyecto no está afiliado oficialmente con la Real Academia Española.
+> ⚠️ Disclaimer: Este proyecto no está afiliado oficialmente con la Real Academia Española, solo obtiene las definiciones de la página web.
